@@ -1,0 +1,55 @@
+{
+  "chapter": {
+    "name": "BNI Example",
+    "location": "Example meeting venue",
+    "vision": "Support local businesses.",
+    "mission": "Grow through referrals."
+  },
+  "weekly_program": {
+    "networking_education": "Education topic",
+    "weekly_presentation": "Presentation topic",
+    "feature_presenters": [],
+    "i_have": "Chapter announcements"
+  },
+  "agenda": [
+    "Open networking",
+    "Welcome",
+    "Introductions",
+    "BNI overview",
+    "Leadership introduction",
+    "Purpose",
+    "Networking",
+    "Networking education",
+    "Member introductions",
+    "Visitors",
+    "Weekly presentations",
+    "Referrals",
+    "Testimonials",
+    "Announcements",
+    "Speaker introduction",
+    "Feature presentation",
+    "I have",
+    "Visitor feedback",
+    "Awards",
+    "Chapter news",
+    "Upcoming events",
+    "Thank you",
+    "Close",
+    "Open networking"
+  ],
+  "events": [
+    [
+      "01/10/2026",
+      "12:00",
+      "Example Member Orientation, Zoom"
+    ]
+  ],
+  "footer": {
+    "owner": "Example chapter contact",
+    "email": "chapter@example.com",
+    "phone": "",
+    "links": [
+      "https://www.bni.com/"
+    ]
+  }
+}

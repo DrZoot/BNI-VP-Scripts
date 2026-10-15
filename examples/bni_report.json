@@ -1,0 +1,148 @@
+{
+  "report_generation_date": "2026-09-24",
+  "report_generated_at": "2026-09-24T10:00:00",
+  "report_metadata": {
+    "chapter_id": "example",
+    "chapter_name": "BNI Example",
+    "generated_date": "2026-09-24",
+    "generated_at": "2026-09-24T10:00:00"
+  },
+  "upcoming_renewals": {
+    "by_month": [],
+    "all": []
+  },
+  "vps_report_last_week": {
+    "meeting_date": "2026-09-23",
+    "one_to_ones": 10,
+    "referrals": 12,
+    "closed_business": 15000,
+    "closed_business_formatted": "$15,000"
+  },
+  "vps_report_last_month": {
+    "month": "August 2026",
+    "start_date": "2026-08-01",
+    "end_date": "2026-08-31",
+    "one_to_ones": 40,
+    "referrals": 48,
+    "closed_business": 60000,
+    "closed_business_formatted": "$60,000"
+  },
+  "notable_networkers": {
+    "month": "August 2026",
+    "categories": {
+      "most_one_to_ones": [
+        {
+          "rank": 1,
+          "member": "Avery Example",
+          "value": 22
+        }
+      ],
+      "most_given_referrals": [
+        {
+          "rank": 1,
+          "member": "Blair Example",
+          "value": 22
+        }
+      ],
+      "most_closed_business": [
+        {
+          "rank": 1,
+          "member": "Casey Example",
+          "value": 25870
+        }
+      ],
+      "most_invited_visitors": [
+        {
+          "rank": 1,
+          "member": "Devon Example",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "rolling_average_tyfcb": {
+    "period_label": "12 months",
+    "start_date": "2025-09-01",
+    "end_date": "2026-08-31",
+    "months": 12,
+    "total_tyfcb": 720000,
+    "total_tyfcb_formatted": "$720,000",
+    "monthly_average": 60000,
+    "monthly_average_formatted": "$60,000"
+  },
+  "all_time_stats": {
+    "start_date": "2020-01-01",
+    "as_of_date": "2026-09-24",
+    "total_referrals_given": 1000,
+    "total_visitors": 200,
+    "total_one_to_ones": 1500,
+    "total_tyfcb": 2000000,
+    "total_tyfcb_formatted": "$2,000,000"
+  },
+  "chapter_roster": {
+    "leaders": [
+      {
+        "role": "President",
+        "name": "Blair Example",
+        "phone": ""
+      },
+      {
+        "role": "Vice President",
+        "name": "Avery Example",
+        "phone": ""
+      },
+      {
+        "role": "Education Co-ordinator",
+        "name": "Casey Example",
+        "phone": ""
+      }
+    ],
+    "regional_leadership": [
+      {
+        "role": "Chapter Ambassador",
+        "name": "Regional Example",
+        "phone": ""
+      }
+    ],
+    "roster": [
+      {
+        "name": "Avery Example",
+        "specialty": "Example specialty",
+        "company": "Example Business 1",
+        "phone": ""
+      },
+      {
+        "name": "Blair Example",
+        "specialty": "Example specialty",
+        "company": "Example Business 2",
+        "phone": ""
+      },
+      {
+        "name": "Casey Example",
+        "specialty": "Example specialty",
+        "company": "Example Business 3",
+        "phone": ""
+      },
+      {
+        "name": "Devon Example",
+        "specialty": "Example specialty",
+        "company": "Example Business 4",
+        "phone": ""
+      }
+    ]
+  },
+  "upcoming_featured_speakers": {
+    "start_date": "2026-09-24",
+    "end_date": "2026-10-21",
+    "speakers": [
+      {
+        "meeting_date": "2026-09-30",
+        "name": "Avery Example"
+      }
+    ]
+  },
+  "target_professionals": [
+    "Electrician",
+    "Accountant"
+  ]
+}

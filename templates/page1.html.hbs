@@ -1,0 +1,161 @@
+<div class="page1-content">
+  <!-- Two Columns Body: 30% / 70% -->
+  <div class="body-columns">
+    <!-- Left Column (30%): Agenda, Chapter Statistics, Target Professionals -->
+    <div class="col-left">
+
+          <div class="bni-brand" style="display: flex;">
+              <img src="assets/logo.png" style="width: 100%; height: 100%; object-fit: cover;"/>
+          </div>
+          <div class="bni-subtitle">BNI Meeting Agenda</div>
+          <div class="red-line"></div>
+
+      <div class="agenda-section">
+        <ol class="agenda-list">
+          {{#each tradesheet.agenda}}
+          <li class="agenda-item">
+            <span class="agenda-num"></span>
+            <span class="agenda-text">
+              {{this}}
+              {{#if (eq @index 7)}}{{#if ../tradesheet.weekly_program.networking_education}}: <em>{{../tradesheet.weekly_program.networking_education}}</em>{{/if}}{{/if}}
+              {{#if (eq @index 10)}}{{#if ../tradesheet.weekly_program.weekly_presentation}}: <em>{{../tradesheet.weekly_program.weekly_presentation}}</em>{{/if}}{{/if}}
+              {{#if (eq @index 15)}}{{#if ../tradesheet.weekly_program.feature_presenters}}: <em>{{#each ../tradesheet.weekly_program.feature_presenters}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}</em>{{/if}}{{/if}}
+              {{#if (eq @index 16)}}{{#if ../tradesheet.weekly_program.i_have}}: <em>{{../tradesheet.weekly_program.i_have}}</em>{{/if}}{{/if}}
+            </span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+
+      <div class="section-box stats-section">
+        <div class="red-bar">Chapter Statistics</div>
+        <table class="striped-table stats-table">
+          <tbody>
+            <tr>
+              <td class="stat-label">Referrals</td>
+              <td class="stat-val">{{format_number bni_report.all_time_stats.total_referrals_given}}</td>
+            </tr>
+            <tr>
+              <td class="stat-label">Past Visitors</td>
+              <td class="stat-val">{{format_number bni_report.all_time_stats.total_visitors}}</td>
+            </tr>
+            <tr>
+              <td class="stat-label">Closed Business</td>
+              <td class="stat-val">{{format_currency_short bni_report.all_time_stats.total_tyfcb}}</td>
+            </tr>
+            <tr>
+              <td class="stat-label">1-2-1</td>
+              <td class="stat-val">{{format_number bni_report.all_time_stats.total_one_to_ones}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-box target-section">
+        <div class="red-bar">Target Professionals</div>
+        <div class="target-body">
+          <div class="target-sub">Do you know anyone in these professions who you would like to invite to our Chapter?</div>
+          <ul class="target-list">
+            {{#each bni_report.target_professionals}}
+            <li>{{this}}</li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column (70%): Vision/Mission, Leadership, Speaker Roster, Regional Team, Events & Important Dates -->
+    <div class="col-right">
+        <div class="chapter-title">{{tradesheet.chapter.name}}</div>
+        <div class="meta-row">
+          <span class="meta-item"><span class="meta-label">Location:</span> <strong>{{tradesheet.chapter.location}}</strong></span>
+          <span class="meta-item meta-date"><span class="meta-label">Date:</span> {{meeting_date}}</span>
+        </div>
+        <div class="welcome-title">Welcome!</div>
+        <div class="red-line" style="margin-bottom: 10px;"></div>
+      <div class="vision-box">
+        <p class="vision-text"><strong>Our Vision:</strong> {{tradesheet.chapter.vision}}</p>
+        <p class="philosophy-text">Success in BNI means being a positive and supportive Member of the organisation based upon mutual respect and support. This requires commitment to your fellow Members as well as following the philosophy of Givers Gain. If I give business to the Members of our Chapters, they in turn will want to give business to me.</p>
+        <p class="mission-text"><strong>Our Mission:</strong> {{tradesheet.chapter.mission}}</p>
+      </div>
+
+      <div class="section-box leadership-section">
+        <div class="red-bar">Leadership Team</div>
+        <table class="striped-table leadership-table">
+          <tbody>
+            {{#each (leadership_rows bni_report.chapter_roster.leaders)}}
+            <tr>
+              <td class="lead-role">{{role}}</td>
+              <td class="lead-person">{{names}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-box speaker-section">
+        <div class="red-bar">Speaker Roster</div>
+        <table class="striped-table speaker-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Date</th>
+              <th style="width: 75%;">Speaker</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bni_report.upcoming_featured_speakers.speakers}}
+            <tr>
+              <td>{{format_roster_date meeting_date}}</td>
+              <td><strong>{{name}}</strong></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-box regional-section">
+        <div class="red-bar">Regional Team</div>
+        <table class="striped-table regional-table">
+          <thead>
+            <tr>
+              <th style="width: 35%;">Role</th>
+              <th style="width: 35%;">Name</th>
+              <th style="width: 30%;">Phone</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bni_report.chapter_roster.regional_leadership}}
+            <tr>
+              <td>{{role}}</td>
+              <td>{{name}}</td>
+              <td>{{phone}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-box events-section">
+        <div class="red-bar">Events and Important Dates</div>
+        <table class="striped-table events-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">Date</th>
+              <th style="width: 20%;">Time</th>
+              <th style="width: 55%;">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each tradesheet.events}}
+            <tr>
+              <td>{{lookup this 0}}</td>
+              <td>{{lookup this 1}}</td>
+              <td>{{lookup this 2}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

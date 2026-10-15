@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BNI Tradesheet - {{tradesheet.chapter.name}}</title>
+  <style>
+    @page {
+      margin: 0;
+    }
+
+    @page portrait-page {
+      size: letter portrait;
+      margin: 0.32in 0.4in 0.3in 0.4in;
+    }
+
+    @page landscape-page {
+      size: letter landscape;
+      margin: 0.28in 0.4in 0.22in 0.4in;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, "Liberation Sans", "Helvetica Neue", Helvetica, sans-serif;
+      color: #1a1a1a;
+      background: #ffffff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-container {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .page-portrait {
+      page: portrait-page;
+      page-break-after: always;
+      break-after: page;
+      height: 10.35in;
+      max-height: 10.35in;
+      overflow: hidden;
+    }
+
+    .page-landscape {
+      page: landscape-page;
+      height: 7.95in;
+      max-height: 7.95in;
+      overflow: hidden;
+    }
+
+    /* Red bar generic */
+    .red-bar {
+      background-color: #D7192A;
+      color: #ffffff;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 11pt;
+      padding: 2.5px 6px;
+      text-align: center;
+      margin-bottom: 2px;
+      margin-top: 10px
+    }
+
+    .red-line {
+      height: 1.5px;
+      background-color: #D7192A;
+      margin-top: 2px;
+      margin-bottom: 5px;
+    }
+
+    /* Page 1 Header */
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .header-left {
+      width: 29.5%;
+    }
+
+    .header-right {
+      width: 68.5%;
+    }
+
+    .bni-brand {
+      font-size: 32pt;
+      font-weight: 900;
+      color: #D7192A;
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .bni-subtitle {
+      font-size: 11pt;
+      font-weight: normal;
+      color: #D7192A;
+      margin-top: 3px;
+    }
+
+    .chapter-title {
+      font-size: 20pt;
+      font-weight: bold;
+      color: #D7192A;
+      line-height: 1.0;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10pt;
+      margin-top: 3px;
+    }
+
+    .meta-label {
+      color: #555;
+    }
+
+    .welcome-title {
+      font-size: 11pt;
+      font-weight: bold;
+      color: #D7192A;
+      margin-top: 2px;
+    }
+
+    /* Page 1 Body Columns */
+    .body-columns {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .col-left {
+      width: 32%;
+      padding-right: 10px;
+    }
+
+    .col-right {
+      width: 68%;
+    }
+
+    /* Agenda */
+    .agenda-section {
+      margin-bottom: 10px;
+    }
+
+    .agenda-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: agenda-item;
+    }
+
+    .agenda-item {
+      font-size: 10pt;
+      line-height: 1.22;
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 2px;
+      margin-top: 4px;
+      counter-increment: agenda-item;
+    }
+
+    .agenda-num {
+      color: #D7192A;
+      font-weight: bold;
+      width: 17px;
+      flex-shrink: 0;
+      text-align: right;
+      margin-right: 5px;
+    }
+
+    .agenda-num::after {
+      content: counter(agenda-item) ".";
+    }
+
+    .agenda-text {
+      color: #222;
+    }
+
+    /* Section boxes */
+    .section-box {
+      margin-bottom: 5px;
+    }
+
+    /* Striped Tables on Page 1 */
+    .striped-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10pt;
+    }
+
+    .striped-table th {
+      color: #D7192A;
+      font-size: 10pt;
+      font-weight: bold;
+      text-align: left;
+      padding: 3px 3px;
+      border-bottom: 0.5px solid #D7192A;
+    }
+
+    .striped-table td {
+      padding: 1.5px 3px;
+      vertical-align: top;
+    }
+
+    .striped-table tbody tr:nth-child(even) {
+      background-color: #EFEFEF;
+    }
+
+    /* Stats table */
+    .stats-table tr {
+      border-bottom: 0.5px solid #E0E0E0;
+    }
+
+    .stats-table td.stat-label {
+      font-weight: bold;
+      text-align: left;
+      width: 55%;
+    }
+
+    .stats-table td.stat-val {
+      font-weight: bold;
+      text-align: right;
+      width: 45%;
+    }
+
+    /* Vision box */
+    .vision-box {
+      font-size: 12pt;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .vision-box p {
+      margin: 0 0 3px 0;
+      padding-bottom: 10px;
+    }
+
+    /* Leadership */
+    .leadership-table td.lead-role {
+      font-weight: bold;
+      width: 40%;
+    }
+
+    .leadership-table td.lead-person {
+      width: 60%;
+    }
+
+    /* Target professionals */
+    .target-body {
+      padding: 2px 4px;
+      background: #FAFAFA;
+      border: 0.5px solid #E0E0E0;
+    }
+
+    .target-sub {
+      font-size: 10pt;
+      color: #333;
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .target-list {
+      margin: 0;
+      padding-left: 14px;
+      font-size: 10pt;
+      font-weight: bold;
+    }
+
+    .target-list li {
+      margin-bottom: 1px;
+    }
+
+    /* PAGE 2 STYLES */
+    .member-bar {
+      margin-bottom: 3px;
+      font-size: 12pt;
+      padding: 3px;
+    }
+
+    .member-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .member-table thead th {
+      color: #D7192A;
+      font-size: 10pt;
+      font-weight: bold;
+      text-align: center;
+      padding: 2px 2px;
+      border-top: 1px solid #D7192A;
+      border-bottom: 1px solid #D7192A;
+      background: #FAFAFA;
+    }
+
+    .col-name-head {
+      width: 16%;
+    }
+
+    .col-business-head {
+      width: 22%;
+    }
+
+    .col-notes-head {
+      width: 12%;
+    }
+
+    .member-table td {
+      border: 0.4px solid #C8C8C8;
+      padding: 2px 4px;
+      vertical-align: middle;
+      height: 38px;
+    }
+
+    .member-table td.col-name {
+      font-size: 8pt;
+      color: #111;
+      font-weight: bold;
+      line-height: 1.15;
+    }
+
+    .member-table td.col-business {
+      font-size: 8pt;
+      line-height: 1.5;
+    }
+
+    .biz-company {
+      font-weight: 600;
+      color: #222;
+    }
+
+    .biz-phone {
+      color: #555;
+      font-size: 8pt;
+    }
+
+    .member-table td.col-notes {
+      background-color: #FAFAFA;
+    }
+
+    /* Page 2 Footer */
+    .page2-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      font-size: 6.6pt;
+      color: #333;
+      padding: 0 4px;
+      line-height: 1.25;
+    }
+
+    .footer-left {
+      width: 50%;
+    }
+
+    .footer-owner {
+      font-weight: bold;
+    }
+
+    .footer-right {
+      width: 45%;
+      text-align: right;
+    }
+
+    .footer-link {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <!-- Page 1: Portrait -->
+  <div class="page-container page-portrait">
+    {{> page1}}
+  </div>
+
+  <!-- Page 2: Landscape -->
+  <div class="page-container page-landscape">
+    {{> page2}}
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<div class="page2-content">
+  <!-- Top Title Bar -->
+  <div class="red-bar member-bar">Chapter Members</div>
+
+  <!-- 6-Column Member Table -->
+  <table class="member-table">
+    <thead>
+      <tr>
+        <th class="col-head col-name-head">Member Name</th>
+        <th class="col-head col-business-head">Business Name</th>
+        <th class="col-head col-notes-head">Referral Notes</th>
+        <th class="col-head col-name-head">Member Name</th>
+        <th class="col-head col-business-head">Business Name</th>
+        <th class="col-head col-notes-head">Referral Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each (member_rows_by_last_name bni_report.chapter_roster.roster)}}
+      <tr class="member-row">
+        <!-- Left Member -->
+        <td class="col-cell col-name">{{#if left}}<strong>{{left.name}}</strong>{{/if}}</td>
+        <td class="col-cell col-business">
+          {{#if left}}
+            <div class="biz-company">{{left.company}}</div>
+            {{#if left.phone}}<div class="biz-phone">{{left.phone}}</div>{{/if}}
+          {{/if}}
+        </td>
+        <td class="col-cell col-notes"></td>
+
+        <!-- Right Member -->
+        <td class="col-cell col-name">{{#if right}}<strong>{{right.name}}</strong>{{/if}}</td>
+        <td class="col-cell col-business">
+          {{#if right}}
+            <div class="biz-company">{{right.company}}</div>
+            {{#if right.phone}}<div class="biz-phone">{{right.phone}}</div>{{/if}}
+          {{/if}}
+        </td>
+        <td class="col-cell col-notes"></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <!-- Footer -->
+  <div class="page2-footer">
+    <div class="footer-left">
+      <div class="footer-owner">{{tradesheet.footer.owner}}</div>
+      <div class="footer-email">{{tradesheet.footer.email}}</div>
+      <div class="footer-phone">{{tradesheet.footer.phone}}</div>
+    </div>
+    <div class="footer-right">
+      {{#each tradesheet.footer.links}}
+      <div class="footer-link">{{this}}</div>
+      {{/each}}
+    </div>
+  </div>
+</div>

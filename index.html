@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BNI Tradesheet - Live Preview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #1e1e24;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOP TOOLBAR */
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 48px;
+      background: #2b2b36;
+      border-bottom: 1px solid #3c3c4a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      user-select: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .brand-badge {
+      background: #D7192A;
+      color: white;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      color: #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      padding: 2px 8px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-group {
+      display: flex;
+      background: #18181f;
+      border: 1px solid #3c3c4a;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .btn {
+      background: transparent;
+      border: none;
+      color: #aaa;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: #363645;
+      color: #fff;
+    }
+
+    .btn.active {
+      background: #D7192A;
+      color: #fff;
+    }
+
+    .action-btn {
+      background: #363645;
+      border: 1px solid #4a4a5c;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn:hover {
+      background: #464658;
+      border-color: #606078;
+    }
+
+    /* VIEWPORT */
+    .viewport {
+      flex: 1;
+      overflow: auto;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    #rendered-output {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+      transform-origin: top center;
+      transition: transform 0.15s ease;
+    }
+
+    /* ON-SCREEN PAPER CARD WRAPPERS */
+    .page-container {
+      background: #ffffff !important;
+      color: #1a1a1a !important;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+      border-radius: 2px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* Override screen dimensions to match Letter sizes with margins applied */
+    .page-portrait {
+      width: 8.5in !important;
+      min-height: 11in !important;
+      max-height: 11in !important;
+      padding: 0.32in 0.4in 0.3in 0.4in !important;
+      overflow: hidden;
+    }
+
+    .page-landscape {
+      width: 11in !important;
+      min-height: 8.5in !important;
+      max-height: 8.5in !important;
+      padding: 0.28in 0.4in 0.22in 0.4in !important;
+      overflow: hidden;
+    }
+
+    /* VIEW FILTER MODES */
+    body.show-p1-only .page-landscape {
+      display: none !important;
+    }
+
+    body.show-p2-only .page-portrait {
+      display: none !important;
+    }
+
+    /* PRINT RULES */
+    @media print {
+      .toolbar {
+        display: none !important;
+      }
+      body {
+        background: #fff !important;
+      }
+      .viewport {
+        padding: 0 !important;
+      }
+      #rendered-output {
+        transform: none !important;
+        gap: 0 !important;
+      }
+      .page-container {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- TOP TOOLBAR -->
+  <div class="toolbar">
+    <div class="brand">
+      <span class="brand-badge">BNI</span>
+      <span>Tradesheet Live Preview</span>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Hot Reload Active</span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <!-- Page View Mode -->
+      <div class="btn-group">
+        <button class="btn active" id="btn-both" onclick="setViewMode('both')">Both Pages</button>
+        <button class="btn" id="btn-p1" onclick="setViewMode('p1')">Page 1 (Portrait)</button>
+        <button class="btn" id="btn-p2" onclick="setViewMode('p2')">Page 2 (Landscape)</button>
+      </div>
+
+      <!-- Zoom -->
+      <div class="btn-group">
+        <button class="btn" onclick="zoom(-0.1)">-</button>
+        <button class="btn" id="zoom-label" onclick="setZoom(1.0)">100%</button>
+        <button class="btn" onclick="zoom(0.1)">+</button>
+      </div>
+
+      <!-- Print -->
+      <button class="action-btn" onclick="window.print()">Print / PDF</button>
+    </div>
+  </div>
+
+  <!-- VIEWPORT -->
+  <div class="viewport">
+    <div id="rendered-output"></div>
+  </div>
+
+  <script>
+    let currentZoom = 0.95;
+
+    function applyZoom() {
+      const el = document.getElementById("rendered-output");
+      if (el) {
+        el.style.transform = `scale(${currentZoom})`;
+      }
+      document.getElementById("zoom-label").textContent = Math.round(currentZoom * 100) + "%";
+    }
+
+    function zoom(delta) {
+      setZoom(Math.max(0.4, Math.min(2.0, currentZoom + delta)));
+    }
+
+    function setZoom(val) {
+      currentZoom = Math.round(val * 100) / 100;
+      applyZoom();
+    }
+
+    function setViewMode(mode) {
+      document.body.classList.remove("show-p1-only", "show-p2-only");
+      document.getElementById("btn-both").classList.remove("active");
+      document.getElementById("btn-p1").classList.remove("active");
+      document.getElementById("btn-p2").classList.remove("active");
+
+      if (mode === "p1") {
+        document.body.classList.add("show-p1-only");
+        document.getElementById("btn-p1").classList.add("active");
+      } else if (mode === "p2") {
+        document.body.classList.add("show-p2-only");
+        document.getElementById("btn-p2").classList.add("active");
+      } else {
+        document.getElementById("btn-both").classList.add("active");
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", applyZoom);
+  </script>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

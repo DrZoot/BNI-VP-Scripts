@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Node modules
+node_modules/
+
+# Generated reports and output
+/output/
+
+# Local credentials and private chapter settings
+.env
+.env.*
+!.env.example
+.aws
+.aws/
+/config/chapter.json
+/config/config.json
+/config/tradesheet.json
+
+# Private downloads, working files, and history backup
+/tmp/
+/.private/
+/login_flow.md
